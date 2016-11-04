@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+# rsyncd      This shell script takes care of starting and stopping
+#             standalone rsync.
+#
+# chkconfig: - 99 50
+# description: rsync is a file transport daemon
+# processname: rsync
+# config: /etc/rsync/rsyncd.conf
+ 
+# Source function library
+. /etc/rc.d/init.d/functions
+ 
+RETVAL=0
+rsync="/usr/bin/rsync"
+prog="rsync"
+CFILE="/etc/$prog/rsyncd.conf"
+
+start() {
+        # Start daemons.
+        [ -x $rsync ] || \
+            { echo "FATAL: No such programme";exit 4; }
+        [ -f $CFILE ] || \
+            { echo "FATAL: config file does not exist";exit 6; }
+        echo -n $"Starting $prog: "
+        daemon $rsync --daemon --config=$CFILE
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog
+        echo
+        return $RETVAL
+}
+ 
+stop() {
+        # Stop daemons.
+        echo -n $"Stopping $prog: "
+        killproc $prog -QUIT
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$prog
+        return $RETVAL
+}
+ 
+# call the function we defined
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        stop
+        start
+        RETVAL=$?
+        ;;
+  status)
+        status $prog
+        RETVAL=$?
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        exit 2
+esac
+ 
+exit $RETVAL

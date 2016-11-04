@@ -1,0 +1,21 @@
+<dataConfig>
+  <dataSource type="JdbcDataSource"  
+              driver="com.mysql.jdbc.Driver"  
+              url="jdbc:mysql://databaseHost/databaseName?useUnicode=true&amp;characterEncoding=UTF-8"  
+              user="databaseUser"  
+              password="databasePassword"/>   
+  <document>  
+        <entity name="phoneCode"
+            query="SELECT 
+			D.FID AS &quot;id&quot;,
+			D.FNUMBER AS &quot;number&quot;,
+			D.FHCODE AS &quot;hCode&quot;,
+			D.FPROVINCE AS &quot;province&quot;,
+			D.FCITY AS &quot;city&quot;,
+			D.FCORP AS &quot;corp&quot;,
+			D.FKCITYID AS &quot;cityId&quot;
+		FROM T_cmct_PhoneCode D
+"> 
+    </entity>  
+  </document>  
+</dataConfig>  

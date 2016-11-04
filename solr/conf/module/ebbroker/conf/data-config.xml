@@ -1,0 +1,54 @@
+<dataConfig>  
+  <dataSource type="JdbcDataSource"
+              driver="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://databaseHost/databaseName" 
+              user="databaseUser" 
+              password="databasePassword" />
+  <document>  
+    <entity name="listings"  
+            query="select 
+			R.FID as &quot;id&quot;,
+			'INNER' as &quot;source&quot;,
+			R.fid as &quot;erpId&quot;,
+			R.FNAME as &quot;name&quot;,
+			R.FPHONE as &quot;phone&quot;,
+			null as &quot;serviceArea&quot;,
+			null as &quot;serviceAreaName&quot;,
+			R.FpersonalRemark as &quot;sign&quot;,
+			R.FWEIXIN as &quot;weixin&quot;,
+			R.Fqq as &quot;qqNumber&quot;,
+			R.FworkYear as &quot;workLife&quot;,
+			O.FNAME as &quot;currentStore&quot;,
+			R.FCREATETIME  as &quot;createTime&quot;,
+			R.FKCREATORID as &quot;creator&quot;,
+			NULL as &quot;eBName&quot;,
+			NULL as &quot;eBPassword&quot;,
+			NULL as &quot;registerType&quot;,
+			R.FNUMBER as &quot;number&quot;,
+			R.FEMAIL as &quot;email&quot;,
+			NULL as &quot;businessAddress&quot;,
+			R.FLASTUPDATETIME as &quot;lastUpdateTime&quot;,
+			R.FKUPDATORID as &quot;updator&quot;,
+			R.FPHOTO as &quot;photo&quot;,
+			NULL AS &quot;cityid&quot;,
+			R.FSEX AS &quot;sex&quot;,
+			NULL AS &quot;bigArea&quot;,
+			r.fgardenNames AS &quot;myGardens&quot;,
+			(select count(d.fid)from t_website_accessrecord d where d.FPERSONID=r.fid and d.FRECORDTYPE='AGENTPAGE') as &quot;accessCount&quot;,
+			(select count(d.fid)from T_WEBSITE_EBROOMLISTING d where d.FKEBBROKERID=r.fid
+				and d.flistingType='SALE' and D.FSTATUS ='1' and D.FPROPERTYTYPE IN ('APARTMENT','LIVINGBUILDING','VILLA') 	 	
+			)as &quot;saleCount&quot;,
+			(select count(d.fid)from T_WEBSITE_EBROOMLISTING d where d.FKEBBROKERID=r.fid
+				and d.flistingType='RENT' and D.FSTATUS ='1'  and D.FPROPERTYTYPE IN ('APARTMENT','LIVINGBUILDING','VILLA') 	 	
+			)as &quot;rentCount&quot;,
+			1 AS &quot;status&quot;,
+			r.fgardenIds  AS &quot;myGardenIds&quot;,
+		  R.FKCONTROLUNITID AS &quot;controlUnit&quot;
+		from T_bd_person R
+	LEFT JOIN T_BD_ORG O ON R.FKORGID=O.FID
+	where r.FNETSTORE ='YES' and o.FLEAF=1
+" 
+>    
+    </entity>  
+  </document>  
+</dataConfig>  

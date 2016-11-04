@@ -1,0 +1,24 @@
+<dataConfig> 
+  <dataSource type="JdbcDataSource"  
+              driver="com.mysql.jdbc.Driver"  
+              url="jdbc:mysql://databaseHost/databaseName"  
+              user="databaseUser"  
+              password="databasePassword"/>  
+  <document>  
+    <entity name="listings"  
+            query="select 
+			R.FID as &quot;id&quot;,
+			R.FURL as &quot;url&quot;,
+			R.FKROOMLISTINGID as &quot;roomlistingId&quot;,
+			R.FIMAGETYPE as &quot;imageType&quot;,
+			R.FFIRSTCOVER as &quot;firstCover&quot;,
+			R.FIDX as &quot;idx&quot;,
+			R.FCREATETIME as &quot;createTime&quot;,
+			R.FKCREATORID as &quot;creator&quot;,
+			R.FATTRIBUTE as &quot;attribute&quot;
+		from T_website_EBROOMLISTINGIMAGE R
+" 
+>    
+    </entity>  
+  </document>  
+</dataConfig>  

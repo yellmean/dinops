@@ -1,0 +1,823 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd" default-lazy-init="true">
+	<bean id="dataSource" class="com.dingjian.base.spring.RoutingDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry value-ref="dataSource_YOUJIA" key="dataSource_YOUJIA"></entry>	
+				<entry value-ref="dataSource_zhengneng" key="dataSource_zhengneng"></entry>  
+				<entry value-ref="dataSource_gldd" key="dataSource_gldd"></entry> 
+				<entry value-ref="DC_AloneTest" key="DC_AloneTest"></entry>
+				<entry value-ref="mysql_base" key="mysql_base"></entry> 
+				<entry value-ref="dcm_huizhou1" key="dcm_huizhou1"></entry> 
+				<entry value-ref="dcm_shenzhen1" key="dcm_shenzhen1"></entry>
+				<entry value-ref="dcm3_common" key="dcm3_common"></entry>
+				<entry value-ref="dataSource_HXWDC" key="dataSource_HXWDC"></entry>
+				<entry value-ref="dataSource_jhdc" key="dataSource_jhdc"></entry>
+				<entry value-ref="dataSource_wfdc" key="dataSource_wfdc"></entry>
+				<entry value-ref="dataSource_mfang" key="dataSource_mfang"></entry>
+				<entry value-ref="dcm_other" key="dcm_other"></entry>
+				<entry value-ref="dcm_shenzhen2" key="dcm_shenzhen2"></entry>
+				<entry value-ref="dataSource_SJJX" key="dataSource_SJJX"></entry>
+				<entry value-ref="dcm_shenzhen3" key="dcm_shenzhen3"></entry> 
+				<entry value-ref="dataSource_chenghong" key="dataSource_chenghong"></entry>
+				<entry value-ref="dcm_shenzhen4" key="dcm_shenzhen4"></entry> 
+				<entry value-ref="dcm_shenzhen5" key="dcm_shenzhen5"></entry> 
+				<entry value-ref="dcm_guangzhou1" key="dcm_guangzhou1"></entry>
+				<entry value-ref="dcm_xiamen1" key="dcm_xiamen1"></entry>
+				<entry value-ref="dcm_phonesale1" key="dcm_phonesale1"></entry>
+				<entry value-ref="dcm_shenzhen6" key="dcm_shenzhen6"></entry> 	
+				<entry value-ref="dcm_other2" key="dcm_other2"></entry>				
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="DC_AloneTest"/> 
+	</bean>  
+	<bean id="dataSource_chenghong" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/chenghong?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="30" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 "/>
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean> 
+
+	<bean id="dataSource_YOUJIA" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/youjia?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="30" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 "/>
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+
+	<bean id="dataSource_zhengneng" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/zhengneng?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="20" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 "/>
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>	
+	<bean id="dataSource_gldd" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/xinhongsheng?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="20" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 "/>
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="DC_AloneTest" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dc_alonetest?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="10" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_shenzhen1" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_shenzhen1?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="10" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	
+	<bean id="dcm3_common" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm3_common?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="10" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	
+	
+	<bean id="mysql_base" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/basedb?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="10" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_huizhou1" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_huizhou1?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="20" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 "/>
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean> 
+	
+<bean id="dataSource_HXWDC" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/hxwdc?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="20" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="true" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 "/>
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+
+	<bean id="dataSource_jhdc" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/jinhong?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="10" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 "/>
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean> 
+	
+	<bean id="dataSource_wfdc" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/wfdc?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="5" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="100" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="10" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 "/>
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dataSource_mfang" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/mfang?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="10" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 "/>
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_other" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_other?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_shenzhen2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_shenzhen2?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dataSource_SJJX" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/sjjx?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="5" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="30" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_shenzhen3" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_shenzhen3?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	<bean id="dcm_shenzhen4" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_shenzhen4?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	 <bean id="dcm_shenzhen5" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_shenzhen5?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_guangzhou1" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_guangzhou1?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_xiamen1" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_xiamen1?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_phonesale1" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_phonesale1?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_shenzhen6" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_shenzhen6?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="dcm_other2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- 驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 数据库连接 -->
+		<property name="url" value="jdbc:mysql://dingjian.mysql.rds.aliyuncs.com:3306/dcm_other2?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"/>
+		<!-- 用户 -->
+		<property name="username" value="dingjian" />  
+		<!-- 密码 -->
+		<property name="password" value="DJsoft_201693821" />
+		<!-- 连接数初始连接数 --> 
+		<property name="initialSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxActive" value="50" />
+		<!-- 空闲线程销毁间隔 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>	
+		<!-- 最大空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="900000"/>	
+		<!-- 最小空闲连接 -->
+		<property name="minIdle" value="2"/>
+		<!-- 最大空闲连接 -->
+		<property name="maxIdle" value="5" />
+		<!-- 自动提交 -->
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="30"/>
+		<!-- 测试连接有效性 -->
+		<property name="validationQuery" value="select 1 " />
+		<!-- 获取连接时测试连接 -->
+		<property name="testOnBorrow" value="true" />
+	</bean>
+</beans>

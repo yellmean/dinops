@@ -1,0 +1,75 @@
+<dataConfig>  
+  <dataSource type="JdbcDataSource"  
+              driver="com.mysql.jdbc.Driver"  
+              url="jdbc:mysql://databaseHost/databaseName?useUnicode=true&amp;characterEncoding=UTF-8"  
+              user="databaseUser"  
+              password="databasePassword"/>   
+  <document>  
+    <entity name="listings"  
+            query="select 
+D.FID AS &quot;id&quot;, 
+D.FNUMBER AS &quot;number&quot;, 
+D.FNAME AS &quot;name&quot;, 
+D.FROOMNUMBERSTR AS &quot;roomNumberStr&quot;, 
+D.FDESCRIPTION AS &quot;description&quot;, 
+D.FKGARDENID as &quot;gardenId&quot;,
+D.FGARDENNAME as &quot;gardenName&quot;,
+D.FAREANAME as &quot;areaName&quot;,
+D.Fparentareaid &quot;parentAreaId&quot;,
+D.FAREAID &quot;areaId&quot;,
+D.FBUSINESSAREA &quot;businessArea&quot;,
+D.FMAPX &quot;mapx&quot;,
+D.FMAPY &quot;mapy&quot;,
+D.FBUILDNAME as &quot;buildName&quot;,
+D.FBUILDINGIDS as &quot;buildingIds&quot;, 
+D.FFLOORIDS as &quot;floorIds&quot;,
+D.FFLOORNUM as &quot;floorNum&quot;,
+D.FRoomNumber as &quot;roomNumber&quot;,
+D.FROOMPHOTONUM as &quot;photoNum&quot;,
+D.FPropertyType as &quot;propertyType&quot;,
+D.FROOMPATTERN as &quot;roomPattern&quot;,
+D.Fdirection as &quot;direction&quot;, 
+D.FDECORATION as &quot;decoration&quot;, 
+D.FbuildArea as &quot;buildArea&quot;,
+D.FroomArea as &quot;roomArea&quot;,
+D.FlistingType as &quot;listingType&quot;,
+D.FCREATETIME AS &quot;createTime&quot;, 
+D.FRENT AS &quot;rent&quot;, 
+D.FPRICE AS &quot;price&quot;,
+(case when D.FbuildArea=0 then 0 else D.FPRICE/D.FbuildArea end)saleAverage,
+(case when D.FbuildArea=0 then 0 else D.FRENT/D.FbuildArea end)rentAverage,
+D.FSALERECEIVEDATE AS &quot;saleReceiveDate&quot;,
+D.FRENTRECEIVEDATE AS &quot;rentReceiveDate&quot;,
+(case when d.frentreceivedate>d.fsalereceivedate then d.frentreceivedate else d.fsalereceivedate end) maxReceiveDate,
+D.FKEYNUMBER AS &quot;keyNumber&quot;,
+D.FLASTFOLLOWDATE AS &quot;lastFollowDate&quot;,
+D.FTRANSACTIONPRICE AS &quot;transactionPrice&quot;,
+D.FTRADEDCOMPANIES AS &quot;tradedCompanies&quot;,
+D.FEXPIRATIONDATE AS &quot;expirationDate&quot;,
+D.FPRIMARYSCHOOLID &quot;primarySchoolId&quot;,
+D.FMIDDLESCHOOLID &quot;middleSchoolId&quot;,
+D.FroomStructural &quot;roomStructural&quot;,
+D.FKsalePersonId &quot;salePersonId&quot;,
+D.FKrentPersonId &quot;rentPersonId&quot;,
+D.FISRECOMMEND &quot;isRecommend&quot;,
+D.FstopFlag &quot;stopFlag&quot;,
+D.FlockFlag &quot;lockFlag&quot;,
+D.FALLSURPLUS &quot;allSurplus&quot;,
+D.FALLOWNER &quot;allOwner&quot;,
+D.FnewestUpdateTime &quot;newestUpdateTime&quot;,
+D.fpropertystatus &quot;propertyStatus&quot;,
+D.Fpurchaseyear &quot;purchaseYear&quot;,
+D.FRECKEYDATE &quot;recKeyDate&quot;,
+D.fdealtime &quot;dealTime&quot;,
+D.FBASEDICTSTATUS &quot;baseDictStatus&quot;,
+D.FKCONTROLUNITID &quot;controlunitId&quot;,
+D.FAPPOINTMETHOD &quot;appointMethod&quot; 
+from t_bc_roomlisting D
+">  
+	<entity name="inner"  
+               query="select concat(h.fpropertytypes,'@',o.flongnumber,'@',(case when h.FISALLPROPERTY is null then '0' else h.FISALLPROPERTY end)) &quot;details&quot; from t_bc_housepower h inner join t_bd_org o on h.fkcurrorgid = o.fid where  length(h.FPROPERTYTYPES) > 2 and h.fkgardenid = '${listings.gardenId}'">  
+              <field column="details" name="longNumber"/>  
+	 </entity>  
+    </entity>  
+  </document>  
+</dataConfig>  

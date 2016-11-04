@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xmlns:aop="http://www.springframework.org/schema/aop"  
+       xmlns:tx="http://www.springframework.org/schema/tx"  
+       xmlns:context="http://www.springframework.org/schema/context"  
+       xsi:schemaLocation="  
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"> 
+	
+	<bean id="methodInvokingJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="taskFacadeService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="methodInvokingJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/1 * * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="remind"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="remindTaskService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+	<bean id="remindTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="remind" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/1 * * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="attendanceWarn"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="attendanceRuleService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+	<bean id="attendanceWarnTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="attendanceWarn" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/5 * * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 同步人员数据到数据魔方中  by sht 2014-04-11 -->
+	<bean id="dayPerson"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="dayPersonService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+	<bean id="dayPersonTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="dayPerson" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 0 * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="belongPersonJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="belongPersonService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+	<bean id="belongPersonCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="belongPersonJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 59 23 * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 置业网设置劵的过期状态  by wsw 2014-6-23 -->
+<!-- 	<bean id="couponsClass" class="com.dingjian.ebhouse.coupons.service.impl.QuartzCoupons"></bean> -->
+<!-- 	<bean id="coupons" -->
+<!-- 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject"> -->
+<!-- 			<ref bean="couponsQuartzCoupons" /> -->
+<!-- 		</property> -->
+<!-- 		<property name="targetMethod"> -->
+<!-- 			<value>jobExcute</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="couponsTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+<!-- 		<property name="jobDetail"> -->
+<!-- 			<ref bean="coupons" /> -->
+<!-- 		</property> -->
+<!-- 		<property name="cronExpression"> -->
+<!-- 			<value>0 0 0 * * ?</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	
+	<!-- 添加触发器 -->
+	<bean lazy-init="false" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+
+					<!--<ref bean="remindTrigger"  />-->
+ 					<ref bean="cronTrigger"  /> 
+<!--  					打包请把这两个任务更新上去 ↑-->
+					<!--<ref bean="attendanceWarnTrigger"/> 	
+				    <ref bean="dayPersonTrigger"/>
+					<ref bean="mfDataDepotTrigger"/>
+					<ref bean="belongPersonCronTrigger"/>
+				-->    	
+<!-- 					<ref bean="couponsTrigger"/> -->
+			</list>
+		</property>
+	</bean>
+</beans>

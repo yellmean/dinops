@@ -1,0 +1,35 @@
+<dataConfig>
+  <dataSource type="JdbcDataSource"  
+              driver="com.mysql.jdbc.Driver"  
+              url="jdbc:mysql://databaseHost/databaseName?useUnicode=true&amp;characterEncoding=UTF-8"  
+              user="databaseUser"  
+              password="databasePassword"/>  
+  <document> 
+    <entity name="resourceCustomer"
+            query="SELECT RC.FID                  as &quot;id&quot;,
+           RC.FRESOURCESCODE       as &quot;resourcesCode&quot;, 
+           cast(RC.FLASTUPDATETIME  as datetime)      as &quot;lastUpdateTime&quot;,
+           RC.FLIMITTYPE           as &quot;limitType&quot;,
+           RC.FLIMITDESC           as &quot;limitDesc&quot;,
+           RC.FKBATCHID            as &quot;batchId&quot;, 
+		   o.FLONGNUMBER           as &quot;orgLongNumber&quot;,
+           RC.FKRESOURCECATEGORYID as &quot;resourceCategoryId&quot;,
+           RC.FCUSTOMERSTATUS      as &quot;customerStatus&quot;,
+           RC.FCUSTOMERNAME        as &quot;customerName&quot;,
+           RC.FCUSTOMERPHONE       as &quot;customerPhone&quot;,
+           RC.FCUSTOMERDESC        as &quot;customerDesc&quot;, 
+           cast(RC.FIMPORTTIME as datetime)          as &quot;importTime&quot;, 
+           RC.FISHANGUP            as &quot;isHangup&quot;, 
+		   RC.FISTOLLCALL       as &quot;isTollcall&quot;,
+		   RC.FSOURCE           as &quot;source&quot;,
+		   RC.FKCONTROLUNITID    as &quot;controlUnitId&quot;,
+		   RC.FSUFFIXSTR   as &quot;suffixStr&quot;,
+		   RC.FPHONECITY   as &quot;phoneCity&quot;
+      FROM T_FASTSALE_RESOURCESCUSTOMER RC
+	  left join t_bd_org o on rc.fkorgid = o.fid 
+	  WHERE RC.FisTollcall IS NULL OR RC.FisTollcall='NO'
+">  
+<field column="lastUpdateTime" name="lastUpdateTime" dateTimeFormat="yyyy-MM-dd'T'hh:mm:ss'Z'"/>
+    </entity>  
+  </document>  
+</dataConfig>  

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xmlns:p="http://www.springframework.org/schema/p"  
+       xmlns:aop="http://www.springframework.org/schema/aop"  
+       xmlns:tx="http://www.springframework.org/schema/tx"  
+       xmlns:context="http://www.springframework.org/schema/context"  
+       xsi:schemaLocation="  
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"> 
+	  
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+        <property name="maxIdle" value="30" />  
+        <property name="maxActive" value="1000" />  
+        <property name="maxWait" value="1000" />  
+        <property name="testOnBorrow" value="true" />  
+    </bean>  
+      
+    <!-- jedis pool配置 -->  
+	<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">  
+		<constructor-arg ref="poolConfig"/>
+		 <constructor-arg>
+			 <list>
+			 <bean class="redis.clients.jedis.JedisShardInfo">
+			 <constructor-arg index="0" value="443e6a872bfe4cd9.m.cnsza.kvstore.aliyuncs.com"/>
+			 <constructor-arg index="1" type="int" value="6379"/>
+			 <constructor-arg index="2" type="int" value="0"/>
+			 <constructor-arg index="3" value="instance:01"/>
+			  <property name="password" value="443e6a872bfe4cd9:DJSoft521168"/>	
+			 </bean>
+			 <bean class="redis.clients.jedis.JedisShardInfo">
+			 <constructor-arg index="0" value="10.24.210.74"/>
+			 <constructor-arg index="1" type="int" value="6379"/>
+			 <constructor-arg index="2" type="int" value="0"/>
+			 <constructor-arg index="3" value="instance:02"/>
+			 </bean>
+			 </list>
+ 		</constructor-arg>
+	    
+	</bean>  
+    
+	<!-- <bean id="redisDao" class="com.dingjian.basedata.redis.dao.ShardedRedisDaoImpl">
+		<property name="redisUtil" ref="shardRedisUtil" />
+    </bean> -->
+</beans>

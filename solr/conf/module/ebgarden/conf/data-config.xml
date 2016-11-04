@@ -1,0 +1,55 @@
+<dataConfig>  
+  <dataSource type="JdbcDataSource"  
+              driver="com.mysql.jdbc.Driver"  
+              url="jdbc:mysql://databaseHost/databaseName"  
+              user="databaseUser"  
+              password="databasePassword"/>  
+  <document>  
+    <entity name="listings"  
+            query="SELECT 
+		(case when M.FKCONTROLUNITID is null then D.FID ELSE  CONCAT(D.FID,',',M.FKCONTROLUNITID) end)  AS &quot;id&quot;,
+		D.FNAME AS &quot;name&quot;,
+		D.FREGISTERNAME AS &quot;registerName&quot;,
+		D.FNUMBER AS &quot;number&quot;,
+		D.FKGEOGRAPHYAREAID AS &quot;areaId&quot;,
+		D.FMAPX AS &quot;mapx&quot;,
+		D.FMAPY AS &quot;mapy&quot;,
+		D.FBUILDTIME AS &quot;buildtime&quot;,
+		M.FGARDENID AS &quot;gardenId&quot;,
+		M.FPANELCOUNT AS &quot;panelCount&quot;,
+		M.FRENTPANELCOUNT as &quot;rentPanelCount&quot;,
+		M.FAVGPRICE AS &quot;avgPrice&quot;,
+		G.FURL AS &quot;firstUrl&quot;,
+		M.FTOTALPRICE AS &quot;totalPrice&quot;,
+		D.fprimarySchoolName as &quot;primarySchoolName&quot;,
+		D.fmiddleSchoolName as &quot;middleSchoolName&quot;,
+		D.FPROPERTYCOMPANY AS &quot;propertyCompany&quot;,
+		D.FMANAGEMENTCHARGE AS &quot;managementCharge&quot;,
+		D.FBUSINESSFACILITY AS &quot;businessFacility&quot;,
+		D.FGARDENFACILITY AS &quot;gardenFacility&quot;,
+		D.FTRAFFICDESCRIPTION AS &quot;trafficDescription&quot;,
+		D.FGARDENLIGHTSPOT AS &quot;gardenLightSpot&quot;,
+		D.FPROPERTYTYPES AS &quot;propertyTypes&quot;,
+		D.FADDRESS AS &quot;address&quot;,
+		D.FDEVELOPER AS &quot;developer&quot;,
+		D.FGREENRATIO AS &quot;greenRatio&quot;,
+		D.FPLOTRATIO AS &quot;plotRatio&quot;,
+		D.FCARPARKNUM AS &quot;carparknum&quot;,
+		D.FGARDENAREA AS &quot;gardenArea&quot;,
+		D.fbuildArea AS &quot;buildArea&quot;,
+		A.FNAME as &quot;areaName&quot;,
+		PA.FNAME AS &quot;parentAreaName&quot;,
+		PA.FID AS &quot;parentAreaId&quot;,
+		A.FKCITYID AS &quot;cityId&quot;,
+		D.FJOINDATE AS &quot;joinDate&quot;,
+		D.FROOMQUANTITY AS &quot;roomQuantity&quot;,
+		M.FKCONTROLUNITID AS &quot;controlUnit&quot;
+	FROM t_brm_garden D 
+	LEFT JOIN t_website_mapgarden M ON M.FGARDENID = D.FID 
+	LEFT JOIN T_BD_AREA A ON A.FID=D.FKGEOGRAPHYAREAID
+	LEFT JOIN T_BD_AREA PA ON A.FKPARENTID=PA.FID
+	LEFT JOIN t_brm_gardenimage G ON G.FGARDENID=D.FID AND G.FCOVER=1
+">    
+    </entity>  
+  </document>  
+</dataConfig>  
