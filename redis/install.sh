@@ -26,6 +26,11 @@ function environment() {
         #useradd -M -g $RedisUser -s /sbin/nologin $RedisUser
         useradd -s /bin/false -M $RedisUser
     fi
+    if [[ $1 != 637[0-9] || -z $1 ]]; then {
+        echo "Warning::Invaild argument, please input a integer number like 637*!"
+        return 1
+    } 
+    fi
 }
 
 function checksource {
@@ -73,7 +78,7 @@ function configure() {
     echo "You should use \"sudo -u $RedisUser /path/to/redis-server /path/to/redis.conf\" to run redis!"
 }
 
-environment; [ $? -ne 0 ] && exit 1
+environment $1; [ $? -ne 0 ] && exit 1
 checksource; [ $? -ne 0 ] && exit 2
-install; [ $? -ne 0 ] && exit 3
-configure; [ $? -ne 0 ] && exit 4
+install $1; [ $? -ne 0 ] && exit 3
+configure $1; [ $? -ne 0 ] && exit 4
