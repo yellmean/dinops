@@ -4,7 +4,9 @@
 # create by Dinops, 2016-9-28
 #
 Prog=redis
-RedisHome=/usr/local/redis
+RedisUser=redis
+RedisPort=$1
+RedisHome=/mnt/www
 ProgDir=$(cd `dirname $0`; pwd)
 RedisVersion=stable
 PkgsType=tar.gz
@@ -14,11 +16,12 @@ function environment() {
     if [[ "$USER" != "root" ]]; then
         echo "Current user is not root"
     fi
-    #grep "$REDIS_USER" /etc/passwd > /dev/null
-    #if [[ $? -ne 0 ]]; then  # check user and group
-    #    groupadd $REDIS_USER
-    #    useradd -M -g $REDIS_USER -s /sbin/nologin $REDIS_USER
-    #fi
+    grep "$RedisUser" /etc/passwd > /dev/null
+    if [[ $? -ne 0 ]]; then
+        #groupadd $RedisUser
+        #useradd -M -g $RedisUser -s /sbin/nologin $RedisUser
+        useradd -s /bin/false -M $RedisUser
+    fi
 }
 
 function checksource {
@@ -35,7 +38,19 @@ function install() {
     cd $ProgDir || return $?
     tar zxvf $Prog-$RedisVersion.$PkgsType || return $?
     cd $Prog-$RedisVersion || return $?
-    make || return $?
+    make test
+    if [ -d $RedisHome/redis$1 ]; then
+        echo "The directory $RedisHome/redis$1 is exist! Please change redis port!"
+        return 3
+    else
+        mkdir -p $RedisHome/redis$1 || return $?
+    fi
+    make test || return $?
+    make prefix=$RedisHome/redis$1 install || return $?
+}
+
+function configure() {
+    cd $RedisHome/redis$1 || return $?
 }
 
 environment; [ $? -ne 0 ] && exit 1
