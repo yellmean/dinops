@@ -49,25 +49,19 @@ function configure {
     sed -i "s/test/$MycatPassword/g" conf/server.xml
     sed -i "s/TESTDB/$MycatSchema/g" conf/server.xml
     sed -i "s/TESTDB/$MycatSchema/g" conf/schema.xml
-    cat << EOF > conf/schema.xml
-    <?xml version="1.0"?>
-    <!DOCTYPE mycat:schema SYSTEM "schema.dtd">
-    <mycat:schema xmlns:mycat="http://org.opencloudb/" >
-	    <schema name="$MycatSchema" checkSQLschema="false" sqlMaxLimit="100" dataNode="dn1"></schema>
-	      <dataNode name="dn1" dataHost="localhost1" database="$MycatSchema" />
-	      <dataHost name="localhost1" maxCon="1000" minCon="10" balance="0" writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
-		      <heartbeat>select user()</heartbeat>
-		      <writeHost host="hostM1" url="$MysqlWriteUrl" user="$MysqlUser" password="$MysqlPassword">
-		       <readHost host="hostS1" url="$MysqlReadUrl" user="$MysqlUser" password="$MysqlPassword" />
-		      </writeHost>
-	      </dataHost>
-    </mycat:schema>
-    EOF
-    reval=$?
-    if [ $reval -ne 0 ]; then
-        echo "Configure Mycat failure, Please manual configuration!"
-        return 3
-    fi
+    #cat << EOF > conf/schema.xml
+    echo '<?xml version="1.0"?>' > conf/schema.xml
+    echo '<!DOCTYPE mycat:schema SYSTEM "schema.dtd">' >> conf/schema.xml
+    echo '<mycat:schema xmlns:mycat="http://org.opencloudb/" >' >> conf/schema.xml
+	echo "   <schema name=\"$MycatSchema\" checkSQLschema=\"false\" sqlMaxLimit=\"100\" dataNode=\"dn1\"></schema>" >> conf/schema.xml
+	echo "   <dataNode name=\"dn1\" dataHost=\"localhost1\" database=\"$MycatSchema\" />" >> conf/schema.xml
+	echo "   <dataHost name=\"localhost1\" maxCon=\"1000\" minCon=\"10\" balance=\"0\" writeType=\"0\" dbType=\"mysql\" dbDriver=\"native\" switchType=\"1\"  slaveThreshold=\"100\">" >> conf/schema.xml
+	echo '	   <heartbeat>select user()</heartbeat>' >> conf/schema.xml
+	echo "	   <writeHost host=\"hostM1\" url=\"$MysqlWriteUrl\" user=\"$MysqlUser\" password=\"$MysqlPassword\">" >> conf/schema.xml
+	echo "	     <readHost host=\"hostS1\" url=\"$MysqlReadUrl\" user=\"$MysqlUser\" password=\"$MysqlPassword\" />" >> conf/schema.xml
+	echo '	   </writeHost>' >> conf/schema.xml
+	echo '   </dataHost>' >> conf/schema.xml
+    echo '</mycat:schema>' >> conf/schema.xml
     echo "Configure Mycat success!"
     return 0
 }
