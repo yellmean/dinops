@@ -53,14 +53,14 @@ function configure {
     echo '<?xml version="1.0"?>' > conf/schema.xml
     echo '<!DOCTYPE mycat:schema SYSTEM "schema.dtd">' >> conf/schema.xml
     echo '<mycat:schema xmlns:mycat="http://org.opencloudb/" >' >> conf/schema.xml
-	echo "   <schema name=\"$MycatSchema\" checkSQLschema=\"false\" sqlMaxLimit=\"100\" dataNode=\"dn1\"></schema>" >> conf/schema.xml
-	echo "   <dataNode name=\"dn1\" dataHost=\"localhost1\" database=\"$MycatSchema\" />" >> conf/schema.xml
-	echo "   <dataHost name=\"localhost1\" maxCon=\"1000\" minCon=\"10\" balance=\"0\" writeType=\"0\" dbType=\"mysql\" dbDriver=\"native\" switchType=\"1\"  slaveThreshold=\"100\">" >> conf/schema.xml
-	echo '	   <heartbeat>select user()</heartbeat>' >> conf/schema.xml
-	echo "	   <writeHost host=\"hostM1\" url=\"$MysqlWriteUrl\" user=\"$MysqlUser\" password=\"$MysqlPassword\">" >> conf/schema.xml
-	echo "	     <readHost host=\"hostS1\" url=\"$MysqlReadUrl\" user=\"$MysqlUser\" password=\"$MysqlPassword\" />" >> conf/schema.xml
-	echo '	   </writeHost>' >> conf/schema.xml
-	echo '   </dataHost>' >> conf/schema.xml
+    echo "\\t<schema name=\"$MycatSchema\" checkSQLschema=\"false\" sqlMaxLimit=\"100\" dataNode=\"dn1\"></schema>" >> conf/schema.xml
+    echo "\\t<dataNode name=\"dn1\" dataHost=\"localhost1\" database=\"$MycatSchema\" />" >> conf/schema.xml
+    echo "\\t<dataHost name=\"localhost1\" maxCon=\"1000\" minCon=\"10\" balance=\"0\" writeType=\"0\" dbType=\"mysql\" dbDriver=\"native\" switchType=\"1\"  slaveThreshold=\"100\">" >> conf/schema.xml
+    echo "\\t\\t<heartbeat>select user()</heartbeat>" >> conf/schema.xml
+    echo "\\t\\t<writeHost host=\"hostM1\" url=\"$MysqlWriteUrl\" user=\"$MysqlUser\" password=\"$MysqlPassword\">" >> conf/schema.xml
+    echo "\\t\\t<readHost host=\"hostS1\" url=\"$MysqlReadUrl\" user=\"$MysqlUser\" password=\"$MysqlPassword\" />" >> conf/schema.xml
+    echo "\\t\\t\\t</writeHost>" >> conf/schema.xml
+    echo "\\t</dataHost>" >> conf/schema.xml
     echo '</mycat:schema>' >> conf/schema.xml
     echo "Configure Mycat success!"
     return 0
