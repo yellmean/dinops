@@ -38,7 +38,7 @@ function checksource {
     if [[ -n $(ls | grep -w $Prog-$RedisVersion.$PkgsType) ]]; then
         echo "$Prog-$RedisVersion.$PkgsType is local exists!"
     else 
-        wget DownloadLink || return $?
+        wget $DownloadLink || return $?
         echo "Download $Prog-$RedisVersion.$PkgsType success!"
     fi
 }
