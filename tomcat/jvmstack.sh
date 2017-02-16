@@ -2,6 +2,7 @@
 
 progdir=$(cd `dirname "$0"`; pwd)
 s='no'
+mkdir -p /mnt/www/logs/jvmstack
 
 function start() {
     tomcat_array=`ps -ef | grep tomcat | grep -v grep | awk -F " " '{print $9}' | cut -d "/" -f 4`
@@ -18,6 +19,17 @@ function start() {
             }
             done
             old_memory=`/usr/java/default/bin/jstat -gcutil "$pid" | awk -F " " '{print $4}' | grep -v O | awk -F "." '{print $1}'`
+	    if [ $old_memory -gt 90 ]; then
+		let num+=1
+	    else
+		num=0
+	    fi
+	    if [ $num -gt 5 ]; then
+                su dingjian -c \
+		"kill -9 $pid && /mnt/www/$tomcat/bin/startup.sh || return $?;\
+		echo `date` >> /mnt/www/logs/jvmstack/$tomcat.log"
+		num=0
+            fi
             if [ $old_memory -gt 70 ]; then
                 let count+=1
             else
@@ -37,7 +49,7 @@ function start() {
                 count=0
                 sleep 300
             fi
-            sleep 2
+            sleep 2 
         }
         done || return $?
     }&
