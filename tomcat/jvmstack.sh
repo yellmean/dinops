@@ -2,7 +2,6 @@
 
 progdir=$(cd `dirname "$0"`; pwd)
 s='no'
-mkdir -p /mnt/www/logs/jvmstack
 
 function start() {
     tomcat_array=`ps -ef | grep tomcat | grep -v grep | awk -F " " '{print $9}' | cut -d "/" -f 4`
