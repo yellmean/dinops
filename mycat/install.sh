@@ -53,7 +53,7 @@ function configure {
     #cat << EOF > conf/schema.xml
     echo -e '<?xml version="1.0"?>' > conf/schema.xml
     echo -e '<!DOCTYPE mycat:schema SYSTEM "schema.dtd">' >> conf/schema.xml
-    echo -e '<mycat:schema xmlns:mycat="http://org.opencloudb/" >' >> conf/schema.xml
+    echo -e '<mycat:schema xmlns:mycat="http://io.mycat/" >' >> conf/schema.xml
     echo -e "\t<schema name=\"$MycatSchema\" checkSQLschema=\"false\" sqlMaxLimit=\"100\" dataNode=\"dn1\"></schema>" >> conf/schema.xml
     echo -e "\t<dataNode name=\"dn1\" dataHost=\"localhost1\" database=\"$MysqlDatabase\" />" >> conf/schema.xml
     echo -e "\t<dataHost name=\"localhost1\" maxCon=\"1000\" minCon=\"10\" balance=\"0\" writeType=\"0\" dbType=\"mysql\" dbDriver=\"native\" switchType=\"1\"  slaveThreshold=\"100\">" >> conf/schema.xml
